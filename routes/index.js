@@ -13,6 +13,18 @@ routes.get('/canciones', async (req, res)=>{
         res.json( tareas );
       }
 });
+routes.get('/moodsfilter', async (req, res)=>{
+    { 
+      const condition = req.body.id;
+        const filter = await knex.select("*").from("songs").innerJoin('songs_moods', 'songs.id','songs_moods.songs_id').where('moods_id', condition);
+        res.status(200);
+        console.log('salio todo ok');
+        res.json( filter );
+      }
+});
+
+
+// const tareasDelUsuario = await knex('tareas').where('usuario_id', req.params.id)
 
 
 module.exports = routes;

@@ -1,11 +1,11 @@
 const knex = require('knex')({
     client: 'pg',
     connection: {
-      host : 'localhost',
-      port : 5432,
-      user : 'postgres',
-      password : 'pingpong',
-      database : 'backend'
+      host : 'ep-noisy-firefly-16356160.us-east-2.aws.neon.tech',
+      port : 'ep-noisy-firefly-16356160',
+      user : 'marcosbaratta',
+      password : 'XHpgnoMu61KW',
+      database : 'proyecto-final'
     }
   });
 
