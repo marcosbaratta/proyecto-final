@@ -9,6 +9,18 @@
             "name": "backend",
             "database": "backend",
             "username": "postgres"
+        },
+        {
+            "pgOptions": {
+                "ssl": true
+            },
+            "previewLimit": 50,
+            "server": "ep-noisy-firefly-16356160.us-east-2.aws.neon.tech",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "nubecita",
+            "database": "proyecto-final",
+            "username": "marcosbaratta"
         }
     ]
 }
