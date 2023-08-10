@@ -19,7 +19,7 @@ routes.get('/moodsfilter', async (req, res)=>{
         const filter = await knex.select("*").from("songs").innerJoin('songs_moods', 'songs.id','songs_moods.songs_id').where('moods_id', condition);
         res.status(200);
         console.log('salio todo ok');
-        res.json( filter );
+        res.json( condition );
       }
 });
 
@@ -28,3 +28,5 @@ routes.get('/moodsfilter', async (req, res)=>{
 
 
 module.exports = routes;
+
+
