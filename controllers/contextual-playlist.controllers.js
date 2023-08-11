@@ -13,10 +13,10 @@ const { matchedData } = require("express-validator");
 
 exports.getAllSongs =  async (req, res)=>{
     {
-        const tareas = await knex.select("*").from("songs");
+        const songs = await knex.select("*").from("songs");
         res.status(200);
         console.log("ya envie la consulta");
-        res.json( tareas );
+        res.json( {songs} );
       }
 };
 
@@ -45,20 +45,6 @@ exports.getFilteredSongs = async (req, res)=>{
 
 }
 
-// exports.registrame = async (req, res, next) => {
-//   const newUser = matchedData(req);
-//   console.log(newUser);
-//   try {
-//     const respuestaBd = await knex('users').insert(newUser, "*");
-//     res.status(201);
-
-//     res.json(respuestaBd[0]);
-//   } catch (e) {
-//     res.status(500);
-//     res.json(e);
-//   }
-//   next();
-// };
 
 
 const secret = 'ni idea men';
@@ -78,3 +64,23 @@ exports.registrame = async (req, res, next) => {
     res.json({ token });
     next();
   };
+
+
+  
+exports.getAllGenres =  async (req, res)=>{
+  {
+      const genres = await knex.select("name").from("genres");
+      const moods = await knex.select("name").from("moods");
+      const occasions = await knex.select("name").from("occasions");
+      const weathers = await knex.select("name").from("weathers");
+
+      res.status(200);
+      const genres1 = genres.map(n => n.name);
+      const moods1 = moods.map(n => n.name);
+      const occasions1 = occasions.map(n => n.name);
+      const weathers1 = weathers.map(n => n.name);
+      
+      // console.log(nombres);
+      res.send( [genres1, moods1, occasions1, weathers1]);
+    }
+};

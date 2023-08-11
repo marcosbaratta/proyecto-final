@@ -1,4 +1,4 @@
-const knex = require("../database/knex");
+const {knex} = require("../database/knex");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { matchedData } = require("express-validator");
@@ -15,21 +15,34 @@ exports.register = async (req, res, next) => {
     sendToken(res, next, req.body.email, req.body.name);
   };
 
+  exports.login = async (req, res, next) => {
+    const { email, password } = req.body;
+  
+    const user = await knex("users").where("email", email).first();
+  
+    if (!user) {
+      res.status(404).json({ mensje: "usuario/contraseña incorrecta" });
+      return next();
+    }
+  
+    const contraseniaValida = await bcrypt.compare(
+      password,
+      user.password
+    );
+  
+    if (!contraseniaValida) {
+      res.status(404).json({ mensje: "usuario/contraseña incorrecta" });
+      return next();
+    }
+  
+    sendToken(res, next, email, user.name);
+  };
+  
+
   const sendToken = (res, next, email, nombre) => {
     const token = jwt.sign({ email, nombre }, secret);
     res.json({ token });
     next();
   };
 
-// exports.createUser = async (req, res, next) => {
-//   const newUser = matchedData(req);
-//   try {
-//     const respuestaBd = await knex('users').insert(newUser, "*");
-//     res.status(201);
-//     res.json(respuestaBd[0]);
-//   } catch (e) {
-//     res.status(500);
-//     res.json(e);
-//   }
-//   next();
-// };
+
