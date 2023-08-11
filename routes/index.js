@@ -1,16 +1,23 @@
 const express = require("express");
 const routes = express.Router();
-const {knex} = require('../database/knex');
 const { getAllSongs, getFilteredSongs } = require("../controllers/contextual-playlist.controllers");
+const {register} = require('../controllers/register.controllers')
 
 
-
+//SONG FILTERS
 
 routes.get('/songs', getAllSongs);
 routes.get('/contextualfilter', getFilteredSongs);
 
 
-// const tareasDelUsuario = await knex('tareas').where('usuario_id', req.params.id)
+// REGISTER AND LOGIN
+
+routes.post('/registrame', register);
+
+
+
+
+
 
 
 module.exports = routes;
