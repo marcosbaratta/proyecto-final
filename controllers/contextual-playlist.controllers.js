@@ -68,19 +68,19 @@ exports.registrame = async (req, res, next) => {
 
   
 exports.getAllGenres =  async (req, res)=>{
-  {
-      const genres = await knex.select("name").from("genres");
-      const moods = await knex.select("name").from("moods");
-      const occasions = await knex.select("name").from("occasions");
-      const weathers = await knex.select("name").from("weathers");
+  
+    const genres = await knex.select("*").from("genres");
+    const moods = await knex.select("*").from("moods");
+    const occasions = await knex.select("*").from("occasions");
+    const weathers = await knex.select("*").from("weathers");
 
-      res.status(200);
-      const genres1 = genres.map(n => n.name);
-      const moods1 = moods.map(n => n.name);
-      const occasions1 = occasions.map(n => n.name);
-      const weathers1 = weathers.map(n => n.name);
-      
-      // console.log(nombres);
-      res.send( [genres1, moods1, occasions1, weathers1]);
-    }
+    res.status(200);
+    const genres1 = genres.map(n => n.name);
+    const moods1 = moods.map(n => n.name);
+    const occasions1 = occasions.map(n => n.name);
+    const weathers1 = weathers.map(n => n.name);
+    
+    // console.log(nombres);
+    res.send( {genres, moods, occasions, weathers});
+  
 };

@@ -5,6 +5,8 @@ const { matchedData } = require("express-validator");
 
 const secret = 'ni idea men';
 exports.secret = secret;
+
+
 exports.register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hashContrasenia = await bcrypt.hash(req.body.password, salt);
@@ -14,6 +16,8 @@ exports.register = async (req, res, next) => {
   
     sendToken(res, next, req.body.email, req.body.name);
   };
+
+
 
   exports.login = async (req, res, next) => {
     const { email, password } = req.body;
@@ -40,7 +44,7 @@ exports.register = async (req, res, next) => {
   
 
   const sendToken = (res, next, email, nombre) => {
-    const token = jwt.sign({ email, nombre }, secret);
+    const token = jwt.sign({ email, nombre }, secret, {expiresIn: '1m'});
     res.json({ token });
     next();
   };
