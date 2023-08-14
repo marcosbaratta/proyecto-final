@@ -24,12 +24,6 @@ exports.getAllSongs =  async (req, res)=>{
 // OBTIENE CANCIONES PARA CONTEXTUAL PLAYLIST
 exports.getFilteredSongs = async (req, res)=>{
     { 
-      // const moods = req.body.moods_id;
-      // const occasions = req.body.occasions_id;
-      // const weathers = req.body.weathers_id;
-      // const genreIds = req.body.genre_id;
-      // const filter = await knex.select("*").from("songs").innerJoin('songs_moods', 'songs.id','songs_moods.songs_id').innerJoin('songs_weathers', 'songs.id','songs_weathers.songs_id').innerJoin('songs_occasion', 'songs.id','songs_occasion.songs_id').where('moods_id', moods).where('weathers_id', weathers).where('occasions_id', occasions).whereIn('genre_id', genreIds).distinctOn('songs.id');
-
 
       const genre_id = req.body.genre;
       delete req.body.genre;
@@ -47,27 +41,9 @@ exports.getFilteredSongs = async (req, res)=>{
 
 
 
-const secret = 'ni idea men';
-exports.secret = secret;
-exports.registrame = async (req, res, next) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashContrasenia = await bcrypt.hash(req.body.password, salt);
-  
-    await knex("users").insert({ ...req.body, password: hashContrasenia });
-    console.log('registro');
-  
-    sendToken(res, next, req.body.email, req.body.name);
-  };
-
-  const sendToken = (res, next, email, nombre) => {
-    const token = jwt.sign({ email, nombre }, secret);
-    res.json({ token });
-    next();
-  };
-
 
   
-exports.getAllGenres =  async (req, res)=>{
+exports.getFilters =  async (req, res)=>{
   
     const genres = await knex.select("*").from("genres");
     const moods = await knex.select("*").from("moods");
@@ -75,11 +51,7 @@ exports.getAllGenres =  async (req, res)=>{
     const weathers = await knex.select("*").from("weathers");
 
     res.status(200);
-    const genres1 = genres.map(n => n.name);
-    const moods1 = moods.map(n => n.name);
-    const occasions1 = occasions.map(n => n.name);
-    const weathers1 = weathers.map(n => n.name);
-    
+
     // console.log(nombres);
     res.send( {genres, moods, occasions, weathers});
   
