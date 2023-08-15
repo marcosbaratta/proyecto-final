@@ -9,6 +9,7 @@ exports.userAuthentication = (req, res, next) =>{
         if(error){
             return res.status(403).json({mensaje: 'invalid token'})
         }
+        console.log('ingresa a verificar token');
         return next()
     } )
 }
