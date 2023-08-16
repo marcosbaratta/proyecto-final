@@ -14,7 +14,7 @@ routes.get('/songs', getAllSongs);
 
 
 // CONTEXTUAL PLAYLISTS
-routes.get('/contextualfilter', userAuthentication, getFilteredSongs);
+routes.post('/contextualfilter', userAuthentication, getFilteredSongs);
 routes.get('/filters',userAuthentication, getFilters)
 
 
