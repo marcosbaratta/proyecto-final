@@ -29,7 +29,15 @@ exports.getFilteredSongs = async (req, res)=>{
       delete req.body.genre;
       console.log(req.body);
       console.log(genre_id);
+      // generar playlist y agarrar su id
       const filter = await knex.select("songs.name as song_name", 'artists.name as artist_name', 'songs.duration as song_duration', 'songs.id' ).from("songs").innerJoin('songs_moods', 'songs.id','songs_moods.songs_id').innerJoin('songs_weathers', 'songs.id','songs_weathers.songs_id').innerJoin('songs_occasion', 'songs.id','songs_occasion.songs_id').innerJoin('artists', 'songs.artist_id', 'artists.id').where(req.body).whereIn('genre_id', genre_id).distinctOn('songs.id');
+ 
+//insertar en playlist_song con el playlist_id todos los song_id de las canciones de la variable filter
+//devolver el playlist_id para luego pedir esta playlist desde el front en otra ruta
+//pasar el playlist_id a traves de react router de un componente a otro usando route-params
+//crear el endpoint para obtener playlist y sus canciones por id
+      
+
 
 
         res.status(200);
