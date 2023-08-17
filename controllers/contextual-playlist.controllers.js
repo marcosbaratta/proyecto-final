@@ -60,20 +60,7 @@ exports.getFilteredSongs = async (req, res)=>{
         const insertToPlaylist_songs = await knex('playlist_songs').insert(playlist_songs)
         
       });
-
-
-      
-      // exports.crearNuevaTarea = async (req, res) => {
-      //   const tareas = await knex('tareas').insert(req.body).returning ("*");
-      //   console.log("nueva tarea");
-      //   res.json({ resultado: tareas });
-      // };
-      
-
-      
-
-
-      
+ 
 // nacho 
 //insertar en playlist_song con el playlist_id todos los song_id de las canciones de la variable filter
 //devolver el playlist_id para luego pedir esta playlist desde el front en otra ruta
@@ -90,7 +77,7 @@ exports.getFilteredSongs = async (req, res)=>{
 
         res.status(200);
         console.log('salio todo ok');
-        res.json( filter );
+        res.json( playlistId[0].id );
       }
 
 }
