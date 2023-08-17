@@ -99,3 +99,17 @@ exports.getFilters =  async (req, res)=>{
     res.send( {genres, moods, occasions, weathers});
   
 };
+
+
+
+// si todo va bien, realizar un select * playlist join playlistsongs join canciones utilizando el id del punto 1 y dicho resultado devolver al front
+exports.getPlaylistById = async (req, res) =>{
+
+ const songs = await knex.select('songs.name as song','songs.duration', 'artists.name as artist').from('songs').innerJoin('playlist_songs', 'songs.id', 'playlist_songs.song_id').innerJoin('playlists', 'playlists.id','playlist_songs.playlist_id').innerJoin('artists','artists.id','songs.artist_id').where(req.body)
+
+ res.status(200);
+
+ console.log(songs);
+ res.json( songs );
+ console.log('este es el req.body',req.body);
+}
